@@ -1,0 +1,14 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+/*font-family: 'Nanum Gothic', serif;*/
+@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+/*font-family: 'KoPub Batang', serif;*/
+@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+/*font-family: 'Nanum Pen Script', serif;*/
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+/*font-family: 'Jeju Gothic', serif;*/
+body{font-family: 'Nanum Gothic', serif;}
+body,h1,h2,h3,h4,h5,h6,ul,p,ol,dl,li,div,img,form,textarea,input,select,fieldset,label{ padding:0; margin:0;}
+a{ text-decoration:none}
+li{ list-style:none;}
+img,textarea,form,fieldset{ vertical-align:middle; border:none;}
+select,input,label{ vertical-align:middle;}

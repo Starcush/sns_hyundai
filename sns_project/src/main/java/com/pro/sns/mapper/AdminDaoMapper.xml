@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pro.sns.admin.AdminDaoMapper">
+	<resultMap type="com.pro.sns.member.Member" id="memberResult">
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="img" property="img" />
+		<result column="isban" property="isban" />
+	</resultMap>
+	<resultMap type="com.pro.sns.board.Report" id="reportResult">
+	<id column="num" property="num"/>
+	<result column="reporter" property="reporter"/>
+	<result column="report_date" property="report_date"/>
+	<result column="admin_response_comment" property="admin_response_comment"/>
+	<result column="request_completed_date" property="request_completed_date"/>
+	<result column="board_num" property="board_num"/>
+	<result column="board_rep_num" property="board_rep_num"/>
+		<association property="board" javaType="com.pro.sns.board.Board">
+			<id column="board_num" property="num"/>
+			<result column="path" property="path"/>
+			<result column="writer" property="writer"/>
+			<result column="content" property="content"/>
+		</association>
+		<association property="boardRep" javaType="com.pro.sns.boardRep.BoardRep">
+			<id column="num" property="num"/>
+			<result column="num" property="num"/>
+		</association>
+	</resultMap>
+	<select id="selectAllMember" resultMap="memberResult">
+		select * from sns_member
+	</select>
+	<delete id="deleteMember" parameterType="java.lang.String">
+	delete sns_member where id = #{id, jdbcType=VARCHAR}
+	</delete>
+	<select id="reportList" parameterType="String" resultMap="reportResult">
+	select r.num, r.reporter, r.report_date, r.admin_response_comment, r.request_completed_date, r.board_num, r.board_rep_num, 
+			b.writer, b.path, b.content 
+	from sns_report r,sns_board b
+	where b.num = r.board_num
+	</select>
+
+</mapper>

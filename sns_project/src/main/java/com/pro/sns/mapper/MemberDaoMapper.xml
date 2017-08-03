@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pro.sns.member.MemberDaoMapper">
+	<resultMap type="com.pro.sns.member.Member" id="memberResult">
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="img" property="img" />
+		<result column="isban" property="isban" />
+	</resultMap>
+	
+	
+	
+	<resultMap type="com.pro.sns.member.Block" id="blockListResult">
+		<id column="num" property="num"/>
+		<result column="target" property="target"/>
+		
+		<association property="member" javaType="com.pro.sns.member.Member">
+			<result column="img" property="img"/>
+		</association>
+	</resultMap>
+	
+	<select id="myBlockList" parameterType="java.lang.String" resultMap="blockListResult">
+		select blo.num, blo.target, m.img 
+		from sns_personal_block blo, sns_member m
+		where m.id = blo.target 
+		and blo.requester = #{id, jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="blockInsert" parameterType="com.pro.sns.member.Block">
+		insert into sns_personal_block 
+		values (seq_sns_personal_block.nextval, #{requester, jdbcType=VARCHAR}, #{target, jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="blockDelete" parameterType="java.lang.Integer">
+		delete sns_personal_block where num=#{num}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+
+	<select id="selectMember" parameterType="String" resultMap="memberResult">
+		select * from sns_member where id = #{id}
+	</select>
+
+	<insert id="memberInsert" parameterType="com.pro.sns.member.Member">
+		insert into sns_member
+		values(#{id}, #{pwd}, #{name}, #{email}, #{img}, #{isban})
+	</insert>
+
+	<delete id="deleteMember" parameterType="java.lang.String">
+		delete sns_member where id=#{id}
+	</delete>
+
+
+
+	<update id="updateMember" parameterType="com.pro.sns.member.Member">
+		update sns_member
+		set id = #{id, jdbcType=VARCHAR},
+		pwd = #{pwd, jdbcType=VARCHAR},
+		name = #{name, jdbcType=VARCHAR},
+		img = #{img, jdbcType=VARCHAR},
+		email = #{email, jdbcType=VARCHAR}
+		where id = #{id, jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectAllMember" resultMap="memberResult">
+		select * from sns_member
+	</select>
+
+</mapper>

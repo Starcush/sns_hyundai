@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pro.sns.boardRep.BoardRepDaoMapper">
+	<resultMap type="com.pro.sns.boardRep.BoardRep" id="boardRepResult">
+		<result column="num" property="num" />
+		<result column="writer" property="writer" />
+		<result column="content" property="content" />
+		<result column="board_rep_date" property="board_rep_date" />
+		<result column="board_num" property="board_num" />
+		<result column="type" property="type" />
+	</resultMap>
+
+	<!-- 로그인했을경우의 댓글출력구문 -->
+	<select id="boardRepSelectAllLoginUserOnly" parameterType="hashMap"
+		resultMap="boardRepResult">
+		select * from sns_board_rep
+		where sns_board_rep.board_num = (select num from sns_board where num = #{num})
+		and sns_board_rep.writer not in(select target from sns_personal_block where requester = #{writer})
+		and sns_board_rep.type != 1
+	</select>
+	<select id="boardRepSelectAllLoginUserOnly_myBoard"
+		parameterType="hashMap" resultMap="boardRepResult">
+		select * from sns_board_rep
+		where
+		sns_board_rep.board_num = (select num from sns_board where num = #{num})
+		and sns_board_rep.writer not in(select target from sns_personal_block
+		where requester = #{writer})
+	</select>
+	<!-- 로그인했을경우의 댓글출력구문 끝-->
+	
+	<!-- 비회원 접속시 -->
+	<select id="boardRepSelectAllNoLoginUserOnly" resultMap="boardRepResult" parameterType="int">
+	select * from sns_board_rep where board_num = (select num from sns_board where num = #{board_num})
+	and type != 1
+	</select>
+	<insert id="boardRepInsert" parameterType="com.pro.sns.boardRep.BoardRep">
+	insert into sns_board_rep values(#{num}, #{writer}, #{content}, to_char(SYSDATE, 'YY/MM/DD HH24:MI:SS'), #{board_num}, #{type})
+	</insert>
+	<insert id="boardRepInsert_backup" parameterType="com.pro.sns.boardRep.BoardRep">
+	insert into sns_board_rep_backup values(#{num}, #{writer}, #{content}, to_char(SYSDATE, 'YY/MM/DD HH24:MI:SS'), #{board_num}, #{type})
+	</insert>
+	<select id="boardRepMakeNum" resultType="int">
+	select seq_sns_board_rep.nextval from dual
+	</select>
+</mapper>
+  
+  

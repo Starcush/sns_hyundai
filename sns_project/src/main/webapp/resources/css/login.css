@@ -1,0 +1,116 @@
+body{
+	background-color: #f4f4f4;
+}
+/*header-상단바 시작*/
+h1{
+	text-align:center;
+	font-size:18px;
+	line-height:55px;
+	color:#FFF;
+	font-weight:100;
+}
+header{
+	width: 100%;
+	height: 55px;
+	background-color: #37b1bc;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+
+.login_wrap { 
+	width:410px;
+	margin:auto;
+	border:hidden;
+	padding-left:50px;
+	padding-top: 130px;
+	}
+.id,.pw{
+	width: 410px;
+}
+.id input,.pw input{
+	width:330px;
+	height:25px;
+	background:#FFF;
+	border:#ddd solid 1px;
+	margin:5px 0;
+	font-size:15px;
+	font-family: 'Nanum Gothic', serif;
+	padding: 10px;
+	float: right;
+	}
+legend{
+	float: left;
+	font-size: 25px;
+	line-height: 60px;
+	color: #666666;
+	margin-right: 10px;
+}
+.checkbox{
+	float: right;
+	margin-top: 3px;
+}
+.checkbox input,.checkbox p{
+	float: left;
+}
+.checkbox input{
+	width: 15px;
+	height: 15px;
+	margin-right: 7px;
+	margin-top: 1px;
+}
+#id_save{
+	margin-right: 30px;
+}
+.checkbox p{
+	font-size: 14px;
+	color: #444;
+}
+	
+.join_btn {
+	clear:both;
+	width: 410px;
+    padding-top: 25px;
+	margin: auto;
+	}	
+	
+.join_btn input[type="submit"]{
+	width:200px;
+	height:50px;
+	background:#23cddc;
+	border:none;
+	color:#FFF;
+	font-size:18px;
+	font-weight:bold;
+	margin-right:5px;
+}	
+
+.join_btn input[type="button"]{
+	width:200px;
+	height:50px;
+	background:#a5c4c7;
+	border:none;
+	color:#FFF;
+	font-size:18px;
+	font-weight:bold;
+}
+a p{
+	text-align: center;
+	margin-left: 60px;
+	margin-top: 10px;
+	font-size: 12px;
+	cursor: pointer;
+}
+a p:hover{
+	text-decoration: underline;
+}	
+
+	
+	
+	
+	
+	
+	
+	
+	

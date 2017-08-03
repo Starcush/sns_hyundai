@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pro.sns.board.BoardDaoMapper">
+
+	<!-- 쿼리 결과가 sns_member와 sns_board 테이블 컬럼까지 받을수 있는 상황 -->
+	<resultMap type="com.pro.sns.board.Board" id="complexResult">
+	
+		<id column="num" property="num"/>
+		<result column="writer" property="writer"/>
+		<result column="path" property="path"/>
+		<result column="content" property="content"/>
+		<result column="board_date" property="board_date"/>
+		<result column="category" property="category"/>
+		<result column="good_count" property="good_count"/>
+		
+		<association property="member" javaType="com.pro.sns.member.Member">
+			<id column="id" property="id"/>
+			<result column="img" property="img"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="com.pro.sns.board.Board" id="boardResult">
+		<id column="num" property="num" />
+		<result column="writer" property="writer" />
+		<result column="path" property="path" />
+		<result column="content" property="content" />
+		<result column="board_date" property="board_date" />
+		<result column="type" property="type" />
+		<result column="category" property="category" />
+		<result column="good_count" property="good_count" />
+	</resultMap>
+	
+	
+	<resultMap type="com.pro.sns.board.Report" id="reportResult">
+	<id column="num" property="num"/>
+	<result column="reporter" property="reporter"/>
+	<result column="report_date" property="report_date"/>
+	<result column="admin_response_comment" property="admin_response_comment"/>
+	<result column="request_completed_date" property="request_completed_date"/>
+	<result column="board_num" property="board_num"/>
+	<result column="board_rep_num" property="board_rep_num"/>
+		<association property="board" javaType="com.pro.sns.board.Board">
+			<id column="board_num" property="num"/>
+			<result column="path" property="path"/>
+			<result column="writer" property="writer"/>
+			<result column="content" property="content"/>
+		</association>
+		<association property="boardRep" javaType="com.pro.sns.boardRep.BoardRep">
+			<id column="num" property="num"/>
+			<result column="num" property="num"/>
+		</association>
+	</resultMap>
+	
+
+	<!-- 로그인후 전체 출력 프로필사진도 얻어와야함 -->
+	<select id="boardSelectAllLoginUserOnly" parameterType="String"
+		resultMap="complexResult">
+		select sns_board.num, sns_board.writer, sns_board.path,
+		sns_board.content,
+		sns_board.board_date, sns_board.type,
+		sns_board.category,
+		sns_board.good_count, sns_member.img
+		from ((select *
+		from sns_board
+		where sns_board.writer in (select sns_friends.REQUESTER
+		from sns_member,
+		sns_friends
+		where sns_friends.target = sns_member.id
+		and sns_friends.status = 1 and sns_friends.target = #{id}
+		union
+		select
+		sns_friends.target from sns_member, sns_friends
+		where
+		sns_friends.requester = sns_member.id
+		and sns_friends.status = 1 and
+		sns_friends.requester =#{id})
+		and sns_board.type != 0
+		and
+		sns_board.writer not in (select target from SNS_PERSONAL_BLOCK where
+		REQUESTER = #{id}))
+		union
+		(select sns_board.num, sns_board.writer,
+		sns_board.path ,sns_board.content,
+		sns_board.board_date,
+		sns_board.type, sns_board.CATEGORY,
+		sns_board.good_count
+		from sns_board,
+		sns_member
+		where sns_board.type = 2 and sns_board.writer =
+		sns_member.id
+		and sns_board.WRITER not in (select sns_friends.REQUESTER
+		from
+		sns_member, sns_friends
+		where sns_friends.target = sns_member.id
+		and sns_friends.status = 1 and sns_friends.target = #{id}
+		union
+		select
+		sns_friends.target from sns_member, sns_friends
+		where
+		sns_friends.requester = sns_member.id
+		and sns_friends.status = 1 and
+		sns_friends.requester =#{id}
+		)
+		and sns_board.writer not in (select
+		target from SNS_PERSONAL_BLOCK where
+		REQUESTER = #{id}))
+		union
+		(select *
+		from sns_board where writer = #{id} )) sns_board, sns_member
+		where
+		sns_board.writer = sns_member.id order by num desc
+	</select>
+
+	<!-- 비회원 전체출력 프로필사진도 얻어와야함 -->
+	<select id="boardSelectAllNoLoginUserOnly" resultMap="complexResult">
+		select 
+			m.img,
+			b.num, 
+			b.writer, 
+			b.path, 
+			b.content, 
+			b.board_date, 
+			b.category, 
+			b.good_count 
+		from sns_board b LEFT JOIN sns_member m
+		ON b.writer = m.id
+		WHERE b.type=2
+		ORDER BY num desc
+	</select>
+	
+	<select id="boardMakeNum" resultType="int">
+	select seq_sns_board_num.nextval from dual
+	</select>
+
+	<insert id="boardInsert" parameterType="com.pro.sns.board.Board">
+	insert into sns_board values(#{num}, #{writer}, #{path}, #{content}, sysdate, #{type}, #{category}, #{good_count})
+	</insert>
+	
+	<insert id="boardInsert_backup" parameterType="com.pro.sns.board.Board">
+	insert into sns_board_backup values(#{num, jdbcType=INTEGER}, #{writer, jdbcType=VARCHAR}, #{path, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR}, sysdate, #{type, jdbcType=INTEGER}, #{category, jdbcType=VARCHAR}, #{good_count, jdbcType=INTEGER})
+	</insert>
+	<update id="boardUpdate" parameterType="com.pro.sns.board.Board">
+	update sns_board 
+	set 
+	 path=#{path},
+	  content=#{content},
+	   board_date=sysdate,
+	    type=#{type},
+	     category=#{category},
+	      good_count=#{good_count}
+	       where num= #{num}
+	</update>
+	
+	<update id="boardUpdate_backup" parameterType="com.pro.sns.board.Board">
+	update sns_board_backup 
+	set 
+	 path=#{path},
+	  content=#{content},
+	   board_date=sysdate,
+	    type=#{type},
+	     category=#{category},
+	      good_count=#{good_count}
+	       where num= #{num}
+	</update>
+	<select id="selectByNum" parameterType="java.lang.Integer" 
+	resultMap="boardResult">
+		select * from sns_board where num=#{num}
+	</select> 
+	<delete id="deleteBoardByNum" parameterType="com.pro.sns.board.Board">
+	delete sns_board where num=#{num}
+	</delete>
+	<select id="sysDate" resultType="string">
+	select to_char(sysdate, 'YY-MM-DD HH24:MI') from dual
+	</select>
+	<insert id="reportInsert" parameterType="com.pro.sns.board.Report">
+	insert into sns_report values(#{num}, #{reporter}, #{report_date}, #{admin_response_comment, jdbcType=VARCHAR}, #{request_completed_date, jdbcType=VARCHAR}, #{board_num}, #{board_rep_num, jdbcType=INTEGER})
+	</insert>
+	<select id="reportMakeNum" resultType="int">
+	select seq_sns_report.nextval from dual
+	</select>
+	<select id="reportList" parameterType="String" resultMap="reportResult">
+	select r.num, r.reporter, r.report_date, r.admin_response_comment, r.request_completed_date, r.board_num, r.board_rep_num, 
+			b.writer, b.path, b.content 
+	from sns_report r,sns_board b
+	where REPORTER=#{id} 
+	and b.num = r.board_num
+	</select>
+	<select id="selectByBoard_Num" parameterType="java.lang.Integer" 
+	resultMap="reportResult">
+		select * from sns_report where board_num=#{board_num}
+	</select> 
+</mapper>

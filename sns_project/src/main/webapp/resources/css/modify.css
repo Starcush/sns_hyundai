@@ -1,0 +1,154 @@
+body{
+	background-color: #f4f4f4;
+}
+/*header-�긽�떒諛� �떆�옉*/
+h1{
+	text-align:center;
+	font-size:18px;
+	line-height:55px;
+	color:#FFF;
+	font-weight:100;
+}
+header{
+	width: 100%;
+	height: 55px;
+	background-color: #37b1bc;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.modify_text {
+	text-align:center;
+	padding:100px 0;
+	font-family: 'Nanum Gothic', serif;
+	font-weight:100;
+	font-size:36px;
+}
+
+.modify_text strong { 
+	font-weight:900;
+}
+
+.modify_wrap { 
+	width:800px;
+	margin:auto;
+	border:hidden;
+	}
+	
+.modify_wrap fieldset {
+	border:none;
+	}
+	
+.modify_wrap div[id="modify_img"]{
+   width:240px;
+   height:240px;
+   text-align:center center;
+   padding:0;
+   float : left;
+}
+
+.modify_wrap input[type="file"]{
+   width:235px;
+   border:#CCC solid 1px;
+   text-align:center center;
+   padding:0;
+}
+
+.modify_wrap span[id="imagePreview"]{
+   width:235px;
+   height:235px;
+   border:#CCC solid 1px;
+/*    background:url('../images/img/profile.jpg') center center no-repeat; */
+   text-align:center center;
+   padding:0;
+   margin-top:5px;
+   float : left;
+
+   }
+	
+input[type="file"], .modify_field, .modify_btn {
+	float:left;
+}
+
+.modify_field {
+	padding-left:20px;
+	position:relative;
+	}
+	
+legend{
+	float: left;
+	font-size: 20px;
+	line-height: 60px;
+	color: #666666;
+	margin-right: 20px;
+}
+	
+
+.modify_field input {
+	width:400px;
+	height:50px;
+	background:#FFF;
+	border:#ddd solid 1px;
+	margin:5px 0;
+	font-size:16px;
+	font-family: 'Nanum Gothic', serif;
+	float : right;
+	}
+	
+.modify_field p {
+	line-height:50px;
+	margin-bottom:-20px;
+	text-indent:20px;
+	}
+	
+.modify_field .id_check {
+	width:30px;
+	height:30px;
+	position:absolute;
+	top:15px;
+	right:10px;
+	}
+	
+.modify_btn {
+	clear:both;
+	float:right;
+	margin-top:10px;
+	margin-right:20px;
+	}	
+	
+.modify_btn input[type="submit"]{
+	width:200px;
+	height:50px;
+	background:#23cddc;
+	border:none;
+	color:#FFF;
+	font-size:18px;
+	font-weight:bold;
+	margin-right:5px;
+}	
+
+.modify_btn input[type="button"]{
+	width:200px;
+	height:50px;
+	background:#a5c4c7;
+	border:none;
+	color:#FFF;
+	font-size:18px;
+	font-weight:bold;
+	margin-right:5px;
+}	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
