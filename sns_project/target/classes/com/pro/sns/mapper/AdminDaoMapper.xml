@@ -30,6 +30,16 @@
 			<result column="num" property="num"/>
 		</association>
 	</resultMap>
+	<resultMap type="com.pro.sns.admin.Ban" id="banResult">
+	<id column="num" property="num"/>
+	<result column="id" property="id"/>
+	<result column="start_date" property="start_date"/>
+	<result column="end_date" property="end_date"/>
+		<association property="member" javaType="com.pro.sns.member.Member">
+			<id column="id" property="id"/>
+			<result column="id" property="id"/>
+		</association>
+	</resultMap>
 	<select id="selectAllMember" resultMap="memberResult">
 		select * from sns_member
 	</select>
@@ -42,5 +52,28 @@
 	from sns_report r,sns_board b
 	where b.num = r.board_num
 	</select>
-
+	<select id="reportListByNum" resultMap="reportResult">
+	select r.num, r.reporter, r.report_date, r.admin_response_comment, r.request_completed_date, r.board_num, r.board_rep_num, 
+			b.writer, b.path, b.content 
+	from sns_report r,sns_board b
+	where b.num = r.board_num and r.board_num=#{board_num}
+	</select>
+	<update id="restrictionMember" parameterType="com.pro.sns.member.Member">
+		update sns_member set isban='t' where id=#{id}
+	</update>
+	<select id="selectMember" parameterType="String" resultMap="memberResult">
+		select * from sns_member where id = #{id}
+	</select>
+	<update id="restrictionComment" parameterType="com.pro.sns.board.Report">
+		update sns_report set admin_response_comment=#{admin_response_comment}, request_completed_date=#{request_completed_date} where num=#{num}
+	</update>
+	<insert id="ban" parameterType="com.pro.sns.admin.Ban">
+	insert into sns_ban values(seq_sns_ban.nextval, #{id}, #{start_date}, #{end_date})
+	</insert>
+	<select id="sysDate" resultType="string">
+	select to_char(sysdate, 'YY-MM-DD HH24:MI') from dual
+	</select>
+	<select id="endDate" resultType="string">
+	select to_char(sysdate+7, 'YY-MM-DD HH24:MI') from dual
+	</select>
 </mapper>

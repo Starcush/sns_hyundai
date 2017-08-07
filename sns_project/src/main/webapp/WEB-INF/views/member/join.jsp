@@ -36,7 +36,7 @@
             		<span id="imagePreview"></span>
             		<label for="image">
             			<span>
-            				<input id="image" type="file" class="profile" name="file" onchange="InputImage();">
+            				<input id="image" type="file" class="profile" name="file"  onchange="InputImage();">
             			</span>
             		</label>
 					

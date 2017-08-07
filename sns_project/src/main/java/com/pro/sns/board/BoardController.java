@@ -34,7 +34,7 @@ public class BoardController {
 		
 		int numberForPrimaryImage = bService.boardMakeNum();
 		String fileName = b.getFile().getOriginalFilename();
-		String path = "C:\\dw89z_SNS_V2\\sns_project\\src\\main\\webapp\\resources\\images\\board_img\\";
+		String path = "C:\\sns_hyundai\\sns_project\\src\\main\\webapp\\resources\\images\\board_img\\";
 		File file = new File(path + numberForPrimaryImage + fileName);
 		
 		try {
@@ -45,6 +45,7 @@ public class BoardController {
 		
 		b.setNum(numberForPrimaryImage);
 		b.setPath(numberForPrimaryImage+fileName);
+		b.setBoard_date(bService.sysDate());
 		bService.boardInsert(b);
 		return "redirect:/board/totalListLoginUserOnly.do";
 	}
@@ -68,19 +69,36 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value = "/board/editForm.do")
-	public ModelAndView editFormGo(@RequestParam(value = "num") int num){
-		ModelAndView mv = new ModelAndView("board/boardEdit");
-		Board board = bService.selectByNum(num);
-		mv.addObject("board", board);
-		System.out.println(board);
-		return mv;
-	}
+	   public ModelAndView editFormGo(@RequestParam(value = "num") int num){
+	      ModelAndView mv = new ModelAndView("board/boardEdit");
+	      Board board = bService.selectByNum(num);
+	      mv.addObject("board", board);
+	      int type = board.getType();
+	      String category = board.getCategory();
+	      if(type == 0) {
+	         mv.addObject("type", "나만보기");
+	      } else if(type == 1) {
+	         mv.addObject("type", "친구만 보기");
+	      } else {
+	         mv.addObject("type", "전체 공개");
+	      }
+	      
+	      if(category.equals("0")) {
+	         mv.addObject("category", "정치");
+	      } else if(category.equals("1")) {
+	         mv.addObject("category", "사회");
+	      } else {
+	         mv.addObject("category", "스포츠");
+	      }
+	      System.out.println(board); 
+	      return mv;
+	   }
 	@RequestMapping(value = "/board/update.do")
 	public String boardUpdate(Board b){
 		System.out.println(b);
 		int numberForPrimaryImage = bService.boardMakeNum();
 		String fileName = b.getFile().getOriginalFilename();
-		String path = "C:\\dw89z_SNS_V2\\sns_project\\src\\main\\webapp\\resources\\images\\board_img\\";
+		String path = "C:\\sns_hyundai\\sns_project\\src\\main\\webapp\\resources\\images\\board_img\\";
 		File file = new File(path + numberForPrimaryImage + fileName);
 		
 		try {
@@ -90,7 +108,7 @@ public class BoardController {
 		}
 		
 		b.setPath(numberForPrimaryImage+fileName);
-		
+		b.setBoard_date(bService.sysDate());
 			bService.boardUpdate(b);
 		return "redirect:/board/totalListLoginUserOnly.do";
 	}

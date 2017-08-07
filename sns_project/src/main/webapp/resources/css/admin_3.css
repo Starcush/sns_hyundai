@@ -120,3 +120,15 @@ header{
 	padding-top: 20px;
 	padding-bottom: 80px;
 }
+input[id=button] {
+    width: 80px;
+	height: 30px;
+	background-color: #23cddc;
+	text-align: center;
+	color: #ffffff;
+	line-height: 30px;
+	font-size: 13px;
+	margin: 0 10px;
+    border: none;
+	
+    }

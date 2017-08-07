@@ -34,5 +34,46 @@ public class AdminServiceImpl implements AdminService {
 		dao = sqlSession.getMapper(AdminDaoMapper.class);
 		return dao.reportList();
 	}
-
+	@Override
+	public ArrayList<Report> reportListByNum(int board_num) {
+		// TODO Auto-generated method stub
+		dao = sqlSession.getMapper(AdminDaoMapper.class);
+		return dao.reportListByNum(board_num);
+	}
+	@Override
+	public void restrictionMember(String id) {
+		// TODO Auto-generated method stub
+		dao = sqlSession.getMapper(AdminDaoMapper.class);
+		dao.restrictionMember(id);
+	}
+	@Override
+	public Member selectMember(String id) {
+		// TODO Auto-generated method stub
+		dao = sqlSession.getMapper(AdminDaoMapper.class);
+		return dao.selectMember(id);
+	}
+	@Override
+	public void restrictionComment(Report r) {
+		// TODO Auto-generated method stub
+		dao = sqlSession.getMapper(AdminDaoMapper.class);
+		dao.restrictionComment(r);
+	}
+	@Override
+	public void ban(Ban ban) {
+		// TODO Auto-generated method stub
+		dao = sqlSession.getMapper(AdminDaoMapper.class);
+		dao.ban(ban);
+	}
+	@Override
+	public String sysDate() {
+		// TODO Auto-generated method stub
+		dao = sqlSession.getMapper(AdminDaoMapper.class);
+		return dao.sysDate();
+	}
+	@Override
+	public String endDate() {
+		// TODO Auto-generated method stub
+		dao = sqlSession.getMapper(AdminDaoMapper.class);
+		return dao.endDate();
+	}
 }

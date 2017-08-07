@@ -1,64 +1,67 @@
-body{
-   background-color: #f4f4f4;
-}
-/*header-�긽�떒諛� �떆�옉*/
+html, body {width: 100%; height: 100%; margin: 0; padding: 0; background: #fcfcfc;}
+  div, input, form, fieldset, textarea, legend {margin: 0; padding: 0;}
+  fieldset { border: 0;}
+  legend {display: none;}
+body {width: 100%; height: 100%; margin: 0; padding: 0; background-color: #f4f4f4;}
 h1{
-   text-align:center;
-   font-size:18px;
-   line-height:55px;
-   color:#FFF;
-   font-weight:100;
+	text-align:center;
+	font-size:18px;
+	line-height:55px;
+	color:#FFF;
+	font-weight:100;
 }
 header{
-   width: 100%;
-   height: 55px;
-   background-color: #37b1bc;
-   position: relative;
-   top: 0;
-   left: 0;
+	width: 100%;
+	height: 55px;
+	background-color: #37b1bc;
+	position: relative;
+	top: 0;
+	left: 0;
 }
+  div, input, form {margin: 0; padding: 0;}
+   .write_wrap {clear:both; overflow: hidden; width: 980px; margin: 0 auto; border:hidden;padding-top: 100px;}   
+   .sideL {float: left; width: 20%;}
+   .sideR {float: right; width: 80%; text-align:right;}
+   .clearFix {overflow: hidden;}
+   .bt1 {text-align: right;}
+   .bt1 input[type="submit"] {
+    width:110px;
+	height:50px;
+	background:#23cddc;
+	border:none;
+	color:#FFF;
+	font-size:18px;
+	font-weight:bold;
+	cursor: pointer;
+	clear: both;}
+	
+	.inpFile {
+	font-size: 13px;
+	width:150px;
+	height:150px;
+	border:#CCC solid 1px;
+	background:url(img/profile_3.jpg) center center no-repeat;
+	text-align:center;
+	margin-right:18px;
+	}
 
-.join_text {
-   text-align:center;
-   padding:130px 0;
-   font-family: 'Nanum Gothic', serif;
-   font-weight:100;
-   font-size:36px;
-}
+	.txtArea{
+	width:80%;
+	height:400px;
+	background:#ffffff;
+	color:#666666;
+	font-size:14px;
+	padding: 15px;
+	margin-bottom: 20px;
+	}
 
-.join_text strong { 
-   font-weight:900;
-}
-
-.join_wrap { 
-   width:800px;
-   margin:auto;
-   border:hidden;
-   padding-left:50px;
-   }
-   
-.join_wrap fieldset {
-   border:none;
-   }
-   
-.join_wrap input[type="file"]{
-   width:235px;
-   border:#CCC solid 1px;
-   text-align:center center;
-   padding:0;
-}
-
-.join_wrap div[id="img"]{
-   width:240px;
-   height:240px;
-   text-align:center center;
-   padding:0;
-   float : left;
-}
-
-.join_wrap span[id="imagePreview"]{
-   width:235px;
-   height:235px;
+	.hiddenItem {
+		display:none;
+		visibility:hidden;
+	}
+	span[id="imagePreview"]{
+   width:300px;
+   height:400px;
    border:#CCC solid 1px;
    background:url('../images/join_img/profile.jpg') center center no-repeat;
    text-align:center center;
@@ -67,86 +70,3 @@ header{
    float : left;
 
    }
-   
-input[type="file"], .join_field {
-   float:left;
-}
-
-.join_field {
-   padding-left:20px;
-   position:relative;
-   }
-
-.join_field input {
-   width:350px;
-   height:50px;
-   background:#FFF;
-   border:#ddd solid 1px;
-   margin:5px 0;
-   font-size:16px;
-   font-family: 'Nanum Gothic', serif;
-   float : left;
-   }
-   
-.join_field span[id="join_dup"] {
-   float : right;
-   }
-   
-/* .join_field .id_check { */
-/*    width: 30px; */
-/*    height: 30px; */
-/* /*    background: url(img/none.png); */
-/*    position: absolute; */
-/*    top: 16px; */
-/*    right:115px; */
-/*    float : left; */
-/*    } */
-   
-.join_btn {
-   clear:both;
-   margin-left:150px;
-   margin-top:30px;
-   padding-top:30px;
-   }   
-   
-.join_btn input[type="submit"]{
-   width:200px;
-   height:50px;
-   background:#23cddc;
-   border:none;
-   color:#FFF;
-   font-size:18px;
-   font-weight:bold;
-   margin-right:5px;
-}   
-
-.join_btn input[type="button"]{
-   width:200px;
-   height:50px;
-   background:#a5c4c7;
-   border:none;
-   color:#FFF;
-   font-size:18px;
-   font-weight:bold;
-   margin-right:5px;
-}   
-   
-#dup {
-   width:100px;
-   height:50px;
-   border:none;
-   background:#CCC;
-   color:#FFF;
-   
-   }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   

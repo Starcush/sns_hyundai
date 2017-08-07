@@ -117,7 +117,7 @@ function check(form){
 			<ul>
 				<li class="profile_img">
 <!-- 					<a href="#"></a> -->
-					<img src="/sns/resources/images/member_img/${totalList.board.member.img }" width="50px" height="50px"/>
+					<img src="${pageContext.request.contextPath}/resources/images/member_img/${totalList.board.member.img }" width="50px" height="50px"/>
 					<a href="#">${totalList.board.writer }</a> 님이 글을 게시했습니다. ${totalList.board.board_date }</li>
 					<li class="more"></li><!-- 하나만 눌러도 전부 이벤트 호출됨  .. 해결가능함 -->
 					<li class="like"></li>
@@ -140,7 +140,7 @@ function check(form){
 			<!-- 내용이 들어가는 부분 -->
 			<p>
 				<span class="list_img">
-					<img src="/sns/resources/images/board_img/${totalList.board.path }" style="width:150px; height:100%">
+					<img src="${pageContext.request.contextPath}/resources/images/board_img/${totalList.board.path }" style="width:150px; height:100%">
 				</span>
 				<span class="list_contet">
 					<textarea name="content" readOnly>${totalList.board.content }</textarea> </span>

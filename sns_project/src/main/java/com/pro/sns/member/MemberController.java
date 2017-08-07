@@ -105,20 +105,29 @@ public class MemberController {
 			return "member/join";
 		}
 
-		String path = "C:\\dw89z_SNS_V2\\sns_project\\src\\main\\webapp\\resources\\images\\member_img\\";
+		String path = "C:\\sns_hyundai\\sns_project\\src\\main\\webapp\\resources\\images\\member_img\\";
 		
 		
 		String fileName = m.getFile().getOriginalFilename();
-		File oldFile = new File(path + fileName);
-		File newFile = new File(path + m.getId() + ".jpg");
+		System.out.println("fileName : "+fileName);
+		File newFile = null;
+		if(fileName=="") {
+			System.out.println("f2 : "+fileName);
+			File oldFile = new File(path + fileName);
+		newFile = new File(path + "no_profile" + ".jpg");
 		oldFile.renameTo(newFile);
+		m.setImg("no_profile.jpg");
+		}else {File oldFile = new File(path + fileName);
+		newFile = new File(path + m.getId() + ".jpg");
+		oldFile.renameTo(newFile);
+		m.setImg(m.getId() + ".jpg");
+		}
 		try {
 			m.getFile().transferTo(newFile);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		
-		m.setImg(m.getId() + ".jpg");
 		mService.memberJoin(m);
 
 		return "redirect:/board/totalList.do";
@@ -144,7 +153,7 @@ public class MemberController {
 		File selectedDir = new File(oldPath);
 		selectedDir.delete();// 지워진다
 
-		String newPath = "C:\\dw89z_SNS_V2\\sns_project\\src\\main\\webapp\\resources\\images\\member_img\\";		
+		String newPath = "C:\\sns_hyundai\\sns_project\\src\\main\\webapp\\resources\\images\\member_img\\";		
 		String fileName = m.getFile().getOriginalFilename();
 		File oldFile = new File(newPath + fileName);
 		File newFile = new File(newPath + m.getId() + ".jpg");

@@ -6,11 +6,11 @@ var InputImage =
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
  
         ImgReader.onload = function (Event) {
-            if (!ImagePre) {
+            if (!ImagePre) { 
                 var newPreview = document.getElementById("imagePreview");
                 ImagePre = new Image();
-                ImagePre.style.width = "250px";
-                ImagePre.style.height = "320px";
+                ImagePre.style.width = "300px";
+                ImagePre.style.height = "400px";
                 newPreview.appendChild(ImagePre);
             }
             ImagePre.src = Event.target.result;
@@ -30,12 +30,14 @@ var InputImage =
         }
  
     }
-   
+    
     var time = new Date().getTime();
     var img_src = document.getElementById("image").value;
     var new_src = img_src + time;
    
-    document.getElementById("imagePreview").src = new_src;
+            document.getElementById("imagePreview").src = new_src;
+   
+            document.getElementById("imagePreview").src = document.getElementById("image").value;
  
       
 })();

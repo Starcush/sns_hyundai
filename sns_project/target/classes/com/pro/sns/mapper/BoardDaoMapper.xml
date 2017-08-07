@@ -135,7 +135,7 @@
 	</select>
 
 	<insert id="boardInsert" parameterType="com.pro.sns.board.Board">
-	insert into sns_board values(#{num}, #{writer}, #{path}, #{content}, sysdate, #{type}, #{category}, #{good_count})
+	insert into sns_board values(#{num}, #{writer}, #{path}, #{content}, #{board_date}, #{type}, #{category}, #{good_count})
 	</insert>
 	
 	<insert id="boardInsert_backup" parameterType="com.pro.sns.board.Board">
@@ -146,7 +146,7 @@
 	set 
 	 path=#{path},
 	  content=#{content},
-	   board_date=sysdate,
+	   board_date=#{board_date},
 	    type=#{type},
 	     category=#{category},
 	      good_count=#{good_count}
@@ -158,7 +158,7 @@
 	set 
 	 path=#{path},
 	  content=#{content},
-	   board_date=sysdate,
+	   board_date=#{board_date},
 	    type=#{type},
 	     category=#{category},
 	      good_count=#{good_count}
@@ -183,7 +183,7 @@
 	<select id="reportList" parameterType="String" resultMap="reportResult">
 	select r.num, r.reporter, r.report_date, r.admin_response_comment, r.request_completed_date, r.board_num, r.board_rep_num, 
 			b.writer, b.path, b.content 
-	from sns_report r,sns_board b
+	from sns_report r,sns_board_backup b
 	where REPORTER=#{id} 
 	and b.num = r.board_num
 	</select>
